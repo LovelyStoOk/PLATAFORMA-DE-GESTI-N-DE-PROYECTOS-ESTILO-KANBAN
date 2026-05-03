@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Pedido</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pedidos.css">
+</head>
+<body>
+  <div class="formulario-container">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+    <img src="img/ESlogo.png" alt="Logo" />
+  </div>
+      
+      <!-- Sección de notificaciones (arriba) -->
+      <div class="sidebar-notifications">
+        <button class="sidebar-btn notification-btn" id="btn-notificaciones" onclick="toggleNotificaciones()">
+          🔔
+          <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+        </button>
+      </div>
+      
+      <!-- Botones principales (centrados) -->
+      <div class="sidebar-main-buttons">
+        <button class="sidebar-btn" onclick="window.location.href='index.html'">🏠 Tablero</button>
+        <button class="sidebar-btn active">📝 Nuevo Pedido</button>
+        <button class="sidebar-btn" onclick="window.location.href='archivados.html'">📚 Archivados</button>
+        
+        <!-- Botón WhatsApp centrado -->
+        <button class="sidebar-btn whatsapp-btn" onclick="window.open('https://web.whatsapp.com', '_blank')">
+          💬 Chat
+        </button>
+      </div>
+      
+      <!-- Sección de administrador (abajo) -->
+      <div class="sidebar-admin-section">
+        <span class="sidebar-admin-label">Admin</span>
+        <button class="sidebar-btn admin-btn" onclick="window.location.href='registro.html'">👥 Empleados</button>
+      </div>
+    </aside>
+
+    <main class="form-main">
+      <h1>ESY GO</h1>
+      <p class="subtitle">Registrar Nuevo Pedido</p>
+
+      <form id="pedidoForm" action="php/registrarPedido.php" method="POST" class="pedido-form">
+        <div class="form-grid">
+          <div class="form-group-item">
+            <label>ID del Pedido</label>
+            <input type="text" name="id_pedido" placeholder="#ORD-XXXX" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Nombre del Cliente</label>
+            <input type="text" name="cliente" placeholder="Nombre completo" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Dirección</label>
+            <input type="text" name="direccion" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Categoría</label>
+            <input type="text" name="categoria" placeholder="Ej. Electrónica, Alimentos" required>
+          </div>
+          
+          <div class="form-group-item">
+            <label>Material del Producto</label>
+            <select name="material" required>
+              <option value="">Seleccionar material</option>
+              <option value="Frágil">🔸 Frágil</option>
+              <option value="Líquido">💧 Líquido</option>
+              <option value="Perecedero">🥶 Perecedero</option>
+              <option value="Electrónico">⚡ Electrónico</option>
+              <option value="Textil">👕 Textil</option>
+              <option value="Papel/Documentos">📄 Papel/Documentos</option>
+              <option value="Plástico">♻️ Plástico</option>
+              <option value="Metal">🔩 Metal</option>
+              <option value="Madera">🪵 Madera</option>
+              <option value="Otro">📦 Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group-item">
+            <label>Peso (kg)</label>
+            <input type="number" name="peso" min="0" step="0.1" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Paquetes</label>
+            <input type="number" name="paquetes" min="1" required>
+          </div>
+          
+          <div class="form-group-item">
+            <label>Distancia (km)</label>
+            <input type="number" name="distancia" min="0" step="0.1" placeholder="Ej. 5.2" required>
+          </div>
+
+          <div class="form-group-item">
+            <label>Prioridad</label>
+            <select name="prioridad">
+              <option value="Alta">🔴 Alta</option>
+              <option value="Normal" selected>🟡 Normal</option>
+              <option value="Baja">🟢 Baja</option>
+            </select>
+          </div>
+
+          <div class="form-group-item">
+            <label>Estado</label>
+            <select id="estado" name="estado">
+              <option value="Recibido" selected>📥 Recibido</option>
+              <option value="Preparado">🧺 Preparado</option>
+              <option value="En ruta">🚚 En ruta</option>
+              <option value="Completado">✅ Completado</option>
+              <option value="Problemas">⚠️ Problemas</option>
+            </select>
+          </div>
+          
+          <!-- AMBOS SELECTORES SIEMPRE VISIBLES -->
+          <div class="form-group-item">
+            <label>Personal de Almacén 🏭</label>
+            <select name="id_almacen" id="select_almacen">
+              <option value="">Sin asignar</option>
+            </select>
+          </div>
+          
+          <div class="form-group-item">
+            <label>Repartidor 🚚</label>
+            <select name="id_repartidor" id="select_repartidor">
+              <option value="">Sin asignar</option>
+            </select>
+          </div>
+
+          <div class="form-group-item full-width">
+            <label>Notas o Comentarios</label>
+            <textarea name="notas" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Campos dinámicos -->
+        <div id="extraCampos"></div>
+
+        <button type="submit" class="btn-registrar">📦 Registrar Pedido</button>
+      </form>
+    </main>
+  </div>
+
+  <!-- Panel de notificaciones (flotante) -->
+  <div class="notifications-panel" id="notificationsPanel">
+    <div class="notifications-header">
+      <h3>🔔 Notificaciones</h3>
+      <button class="btn-clear-notifications" onclick="limpiarNotificaciones()">🗑️ Limpiar</button>
+    </div>
+    <div class="notifications-body" id="notificationsBody">
+      <p class="loading-notifications">Cargando...</p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/notificaciones.js"></script>
+  <script src="js/pedidos.js"></script>
+</body>
+</html>

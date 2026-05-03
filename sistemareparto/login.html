@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Sistema de Reparto</title>
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="logo">
+          <img src="img/ESlogo.png" alt="ESY GO Logo">
+        </div>
+        <h1>ESY GO</h1>
+        <p>Inicia sesión para continuar</p>
+      </div>
+
+      <form id="loginForm" method="POST" action="php/login.php">
+        <div class="form-group">
+          <label for="username">
+            <span class="icon">👤</span>
+            Usuario
+          </label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            placeholder="Ingresa tu usuario" 
+            required 
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <span class="icon">🔒</span>
+            Contraseña
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="Ingresa tu contraseña" 
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button type="submit" class="btn-login">
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <div class="login-footer">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Verificar si hay un mensaje de error en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error === 'invalid') {
+      alert('❌ Usuario o contraseña incorrectos');
+    } else if (error === 'session') {
+      alert('⚠️ Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+    } else if (error === 'access') {
+      alert('⛔ No tienes permisos para acceder a esa página');
+    }
+
+    // Manejar envío del formulario
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!username || !password) {
+        e.preventDefault();
+        alert('⚠️ Por favor completa todos los campos');
+      }
+    });
+  </script>
+</body>
+</html>

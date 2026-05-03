@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedidos Archivados</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/archivados.css" />
+</head>
+<body>
+  <div class="archivados-container">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+    <img src="img/ESlogo.png" alt="Logo" />
+  </div>
+      
+      <!-- Sección de notificaciones (arriba) -->
+      <div class="sidebar-notifications">
+        <button class="sidebar-btn notification-btn" id="btn-notificaciones" onclick="toggleNotificaciones()">
+          🔔
+          <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+        </button>
+      </div>
+      
+      <!-- Botones principales (centrados) -->
+      <div class="sidebar-main-buttons">
+        <button class="sidebar-btn" onclick="window.location.href='index.html'">🏠 Tablero</button>
+        <button class="sidebar-btn" onclick="window.location.href='pedidos.html'">📝 Nuevo Pedido</button>
+        <button class="sidebar-btn active">📚 Archivados</button>
+        
+        <!-- Botón WhatsApp centrado -->
+        <button class="sidebar-btn whatsapp-btn" onclick="window.open('https://web.whatsapp.com', '_blank')">
+          💬 Chat
+        </button>
+      </div>
+      
+      <!-- Sección de administrador (abajo) -->
+      <div class="sidebar-admin-section">
+        <span class="sidebar-admin-label">Admin</span>
+        <button class="sidebar-btn admin-btn" onclick="window.location.href='registro.html'">👥 Empleados</button>
+      </div>
+    </aside>
+
+    <main class="content-main">
+      <div class="header-section">
+        <h1>ESY GO</h1>
+        <p class="subtitle">📚 Pedidos Archivados</p>
+        <div class="stats-container">
+          <div class="stat-card">
+            <span class="stat-number" id="total-archivados">0</span>
+            <span class="stat-label">Total Archivados</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="total-hoy">0</span>
+            <span class="stat-label">Archivados Hoy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filtros-container">
+        <input type="text" id="buscar" class="input-buscar" placeholder="🔍 Buscar por ID, cliente o dirección...">
+        <select id="filtro-fecha" class="select-filtro">
+          <option value="todos">Todos los periodos</option>
+          <option value="hoy">Hoy</option>
+          <option value="semana">Esta semana</option>
+          <option value="mes">Este mes</option>
+        </select>
+      </div>
+
+      <div id="lista-archivados" class="lista-archivados">
+        <p class="loading">Cargando pedidos archivados...</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Panel de notificaciones (flotante) -->
+  <div class="notifications-panel" id="notificationsPanel">
+    <div class="notifications-header">
+      <h3>🔔 Notificaciones</h3>
+      <button class="btn-clear-notifications" onclick="limpiarNotificaciones()">🗑️ Limpiar</button>
+    </div>
+    <div class="notifications-body" id="notificationsBody">
+      <p class="loading-notifications">Cargando...</p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/notificaciones.js"></script>
+  <script src="js/archivados.js"></script>
+</body>
+</html>
