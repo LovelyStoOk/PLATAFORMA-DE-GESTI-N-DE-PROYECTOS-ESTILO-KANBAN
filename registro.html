@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Trabajador</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/registro.css" />
+</head>
+<body>
+  <div class="registro-container">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+    <img src="img/ESlogo.png" alt="Logo" />
+  </div>
+      
+      <!-- Sección de notificaciones (arriba) -->
+      <div class="sidebar-notifications">
+        <button class="sidebar-btn notification-btn" id="btn-notificaciones" onclick="toggleNotificaciones()">
+          🔔
+          <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+        </button>
+      </div>
+      
+      <!-- Botones principales (centrados) -->
+      <div class="sidebar-main-buttons">
+        <button class="sidebar-btn" onclick="window.location.href='index.html'">🏠 Tablero</button>
+        <button class="sidebar-btn" onclick="window.location.href='pedidos.html'">📝 Nuevo Pedido</button>
+        <button class="sidebar-btn" onclick="window.location.href='archivados.html'">📚 Archivados</button>
+        
+        <!-- Botón WhatsApp centrado -->
+        <button class="sidebar-btn whatsapp-btn" onclick="window.open('https://web.whatsapp.com', '_blank')">
+          💬 Chat
+        </button>
+      </div>
+      
+      <!-- Sección de administrador (abajo) -->
+      <div class="sidebar-admin-section">
+        <span class="sidebar-admin-label">Admin</span>
+        <button class="sidebar-btn admin-btn active" onclick="window.location.href='registro.html'">👥 Empleados</button>
+      </div>
+    </aside>
+
+    <main class="form-main">
+      <div class="header-section">
+        <h1>ESY GO</h1>
+        <p class="subtitle">👤 Registro de Trabajador</p>
+      </div>
+
+      <div class="form-container">
+        <form id="trabajadorForm" method="POST" class="trabajador-form">
+          
+          <!-- Sección: Información Personal -->
+          <div class="form-section">
+            <h2 class="section-title">
+              <span class="section-icon">👤</span>
+              Información Personal
+            </h2>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="required">Nombre(s)</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+                <span class="error-message" id="nombreError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label class="required">Apellido Paterno</label>
+                <input type="text" name="apellido_paterno" id="apellido_paterno" placeholder="Apellido paterno" required>
+                <span class="error-message" id="apellidoPaternoError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label class="required">Apellido Materno</label>
+                <input type="text" name="apellido_materno" id="apellido_materno" placeholder="Apellido materno" required>
+                <span class="error-message" id="apellidoMaternoError"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección: Información Laboral -->
+          <div class="form-section">
+            <h2 class="section-title">
+              <span class="section-icon">💼</span>
+              Información Laboral
+            </h2>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="required">ID de Trabajador</label>
+                <input type="text" name="id_trabajador" id="id_trabajador" placeholder="Ej: EMP-001" required>
+                <span class="helper-text">Identificador único del empleado</span>
+                <span class="error-message" id="idTrabajadorError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label class="required">RFC</label>
+                <input type="text" name="rfc" id="rfc" placeholder="Ej: ABCD123456XYZ" maxlength="13" required>
+                <span class="helper-text">13 caracteres</span>
+                <span class="error-message" id="rfcError"></span>
+              </div>
+              
+              <div class="form-group">
+                <label class="required">Correo Electrónico</label>
+                <input type="email" name="email" id="email" placeholder="usuario@empresa.com" required>
+                <span class="error-message" id="emailError"></span>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="required">Rol / Puesto</label>
+                <select name="rol" id="rol" required>
+                  <option value="">Seleccione un rol</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Supervisor">Supervisor</option>
+                  <option value="Repartidor">Repartidor</option>
+                  <option value="Almacén">Personal de Almacén</option>
+                </select>
+                <span class="error-message" id="rolError"></span>
+              </div>
+
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" name="telefono" id="telefono" placeholder="55-1234-5678">
+              </div>
+
+              <div class="form-group">
+                <label>Fecha de Ingreso</label>
+                <input type="date" name="fecha_ingreso" id="fecha_ingreso">
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección: Seguridad -->
+          <div class="form-section">
+            <h2 class="section-title">
+              <span class="section-icon">🔐</span>
+              Seguridad y Acceso
+            </h2>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="required">Contraseña de Administrador</label>
+                <input type="password" name="admin_password" id="admin_password" placeholder="Ingrese su contraseña" required>
+                <span class="helper-text">Requerida para autorizar el registro</span>
+                <span class="error-message" id="adminPasswordError"></span>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <span class="info-icon">ℹ️</span>
+              <p>Por seguridad, se requiere la contraseña de administrador para crear nuevos usuarios en el sistema.</p>
+            </div>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">
+              ← Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              ✓ Registrar Trabajador
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- Panel de notificaciones (flotante) -->
+  <div class="notifications-panel" id="notificationsPanel">
+    <div class="notifications-header">
+      <h3>🔔 Notificaciones</h3>
+      <button class="btn-clear-notifications" onclick="limpiarNotificaciones()">🗑️ Limpiar</button>
+    </div>
+    <div class="notifications-body" id="notificationsBody">
+      <p class="loading-notifications">Cargando...</p>
+    </div>
+  </div>
+
+  <script src="js/notificaciones.js"></script>
+  <script src="js/registro.js"></script>
+</body>
+</html>

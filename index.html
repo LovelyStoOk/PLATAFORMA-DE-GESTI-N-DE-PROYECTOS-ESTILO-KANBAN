@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tablero de Pedidos</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/tablero.css" />
+</head>
+<body>
+  <div class="tablero-container">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+    <img src="img/ESlogo.png" alt="Logo" />
+  </div>
+      
+      <!-- Sección de notificaciones (arriba) -->
+      <div class="sidebar-notifications">
+        <button class="sidebar-btn notification-btn" id="btn-notificaciones" onclick="toggleNotificaciones()">
+          🔔
+          <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+        </button>
+      </div>
+      
+      <!-- Botones principales (centrados) -->
+      <div class="sidebar-main-buttons">
+        <button class="sidebar-btn active">🏠 Tablero</button>
+        <button class="sidebar-btn" onclick="window.location.href='pedidos.html'">📝 Nuevo Pedido</button>
+        <button class="sidebar-btn" onclick="window.location.href='archivados.html'">📚 Archivados</button>
+        
+        <!-- Botón WhatsApp centrado -->
+        <button class="sidebar-btn whatsapp-btn" onclick="window.open('https://web.whatsapp.com', '_blank')">
+          💬 Chat
+        </button>
+      </div>
+      
+      <!-- Sección de administrador (abajo) -->
+      <div class="sidebar-admin-section">
+        <span class="sidebar-admin-label">Admin</span>
+        <button class="sidebar-btn admin-btn" onclick="window.location.href='registro.html'">👥 Empleados</button>
+      </div>
+    </aside>
+
+    <main class="kanban">
+      
+      <h1>ESY GO</h1>
+      <p class="subtitle">Tablero de pedidos Kanban</p>
+
+      <div class="kanban-board">
+        <div class="kanban-column" id="col-recibido">
+          <h3>Recibido</h3>
+          <div class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column" id="col-preparado">
+          <h3>Preparado</h3>
+          <div class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column" id="col-enruta">
+          <h3>En ruta</h3>
+          <div class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column" id="col-completado">
+          <h3>Completado</h3>
+          <div class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column" id="col-problemas">
+          <h3>Problemas</h3>
+          <div class="kanban-cards"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal para ver detalles completos del pedido -->
+  <div class="modal-overlay" id="modalPedido">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitulo">Detalles del Pedido</h2>
+        <button class="modal-close" onclick="cerrarModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <p>Cargando...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="cerrarModal()">Cerrar</button>
+        <button class="btn-primary" onclick="editarPedido()">Editar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Panel de notificaciones (flotante) -->
+  <div class="notifications-panel" id="notificationsPanel">
+    <div class="notifications-header">
+      <h3>🔔 Notificaciones</h3>
+      <button class="btn-clear-notifications" onclick="limpiarNotificaciones()">🗑️ Limpiar</button>
+    </div>
+    <div class="notifications-body" id="notificationsBody">
+      <p class="loading-notifications">Cargando...</p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/notificaciones.js"></script>
+  <script src="js/tablero.js"></script>
+</body>
+</html>
